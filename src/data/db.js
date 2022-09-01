@@ -1,5 +1,5 @@
 
-export default {
+const data = {
   letters: [
     {key: "a"},
     {key: "b"},
@@ -31,3 +31,6 @@ export default {
   solutions: [ "pools", "pools", "pools", "pools", "pools"
   ]
 }
+
+
+export default data;
