@@ -1,0 +1,70 @@
+import styled from 'styled-components';
+import { fSize } from '../hooks/fonts&screen';
+
+export default function Keypad(props) {
+  const { letterArray , arrayTally, answer, wordle } = props;
+  
+  //GET WORDLE CLONE AND .replace(/,/g, '') THEN ADD tHAT TO LINE 16
+
+
+  return (
+    <Wrapper>
+        {wordle[0] && //CHECK IF ARRAY HAS BEGUN
+          [...wordle].map((item, index) => //GET INDEX TO MAP OUT NEW ROWS
+            <Row key={index}>
+
+              {answer &&  [...wordle[index]].map((item, index) => { // ADD SUBMITTED WORD PERMANENTLY
+                return <Turns key={index} 
+                              style={{backgroundColor : answer[0].includes(item) ? 
+                                                        answer[0][index] === item ? 'lightgreen' : 'orange'
+                                                        : 'lightgrey'}}>
+                              {item}
+                      </Turns>}
+            )} 
+            </Row>
+          )
+        } 
+
+        {arrayTally < 6 && <Row>
+          <Turns>{letterArray[0]}</Turns>
+          <Turns>{letterArray[1]}</Turns>
+          <Turns>{letterArray[2]}</Turns>
+          <Turns>{letterArray[3]}</Turns>
+          <Turns>{letterArray[4]}</Turns>
+        </Row>
+        }
+    </Wrapper>
+  )
+}
+
+
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  &:first-child {
+    padding-top: 2rem;
+  }
+`;
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+`;
+const Turns = styled.div`
+  height: 15%;
+  width: 10%;  
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  margin: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${fSize.large};
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+`;
