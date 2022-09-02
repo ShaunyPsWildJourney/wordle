@@ -98,7 +98,7 @@ function App() {
 
 
   return (
-    <Wrapper style={{height: `${onlyHeight}`}}>
+    <Wrapper style={{height: `${onlyHeight}px`}}>
 
     <Container>
 

@@ -18,18 +18,12 @@ export default function Winner(props) {
 
 const Wrapper = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  height: 85%;
-  width: 50%;
-  min-width: 300px;
-  min-height: 600px;
+  height: 75%;
   border-radius: 30px;
-  background-color: white;
   ${screenSize.mobile}{
     width: 95%;
   }
@@ -42,8 +36,8 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   position: relative;
-  width: 70%;
-  height: auto;
+  width: 99%;
+  height: 99%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,6 +45,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 30px;
   padding: 3rem 0;
+
 `;
 const Header = styled.div`
   display: flex;

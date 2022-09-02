@@ -1,20 +1,23 @@
 import styled from 'styled-components';
 import {useState, useEffect } from 'react';
 import  alphabet  from '../data/db';
-import { fSize } from '../hooks/fonts&screen';
+import { fSize, screenSize } from '../hooks/fonts&screen';
 
 
 export default function Keypad(props) {
   const [letter, setLetter] = useState(null);
+  const [letter2, setLetter2] = useState(null);
+  const [letter3, setLetter3] = useState(null);
   const [ green, setGreen ] = useState('');
   const [ orange, setOrange ] = useState('');
   const { getLetter, handleDelete, handleSubmit , lettersPicked , solution, latestWordle, gameNumber} = props;
 
   useEffect(() => {
     setLetter(alphabet.letters)
+    setLetter2(alphabet.letters2)
+    setLetter3(alphabet.letters3)
   }, [])
   
-
     useEffect(() => {
   if (lettersPicked) {
     // GET LETTER MATCHES REGARDLESS
@@ -32,12 +35,17 @@ export default function Keypad(props) {
   }
 }, [lettersPicked, latestWordle, solution.solutions, gameNumber])
 
+  function handleReset() {
+    setOrange('');
+    setGreen('');
+  }
 
 
   return (
       <Wrapper>
-        <Keys>
-          <Parameters onClick={handleDelete}>del</Parameters>
+        <Keys >
+        {/* onKeyPress={charPress === item.key ? console.log(`success ${item.key}`) : null} */}
+          <KeyContainer>
           {letter && letter.map((item, index) => {
             return <KeyLetter onClick={() => getLetter(item.key)} 
                               key={index}
@@ -45,17 +53,47 @@ export default function Keypad(props) {
                                         lettersPicked.includes(item.key) 
                                         ? orange.includes(item.key)
                                         ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
-                                      }}
-
-
-                              // onKeyPress={charPress === item.key ? console.log(`success ${item.key}`) : null}
-                              >
+                                      }}>
                                 {item.key}
                    </KeyLetter>
           })}
+          </KeyContainer>
+          <KeyContainer>
+          {letter2 && letter2.map((item, index) => {
+            return <KeyLetter onClick={() => getLetter(item.key)} 
+                              key={index}
+                              style={{backgroundColor: //COLOR MATCHING
+                                        lettersPicked.includes(item.key) 
+                                        ? orange.includes(item.key)
+                                        ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
+                                      }}>
+                                {item.key}
+                   </KeyLetter>
+          })}
+          </KeyContainer>
+          <KeyContainer>
+            <Parameters onClick={handleDelete}>del</Parameters>
+
+            {letter3 && letter3.map((item, index) => {
+              return <KeyLetter onClick={() => getLetter(item.key)} 
+                                key={index}
+                                style={{backgroundColor: //COLOR MATCHING
+                                          lettersPicked.includes(item.key) 
+                                          ? orange.includes(item.key)
+                                          ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
+                                        }}>
+                                  {item.key}
+                    </KeyLetter>
+            })}
+            <Parameters onClick={() => {handleSubmit(); handleReset()}}
+                      style={{minWidth: '4rem',}}>Enter</Parameters>
+          </KeyContainer>
+
+
         </Keys>
-        <Parameters onClick={handleSubmit}
-                    style={{minWidth: '4rem',}}>Enter</Parameters>
+
+
+
       </Wrapper>
   )
 }
@@ -68,37 +106,51 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 45%;
+  height: 35%;
+
 `;
 const Keys = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   ${fSize.large};
+  width: 98%;
 `;
-const KeyLetter = styled.div`
-  height: 15%;
-  width: 10%;  
-  min-width: 2.5rem;
-  min-height: 2.5rem;
-  margin: 0.2rem;
+const KeyContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;  
+`;
+const KeyLetter = styled.div`
+  height: 90%;
+  width: 2rem;  
+  height: 3.4rem;
+  margin: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  flex-direction: row;
   border-radius: 8px;
   background-color: lightgrey;
   cursor: pointer;
   &:active {
     box-shadow: inset 3px 3px 3px black;
   }
+  ${screenSize.tablet} {
+    width: 2.8rem;  
+  }
+  ${screenSize.laptop} {
+    width: 3.2rem;  
+  }
 `;
+
 const Parameters = styled.button`
-  height: 15%;
-  width: 10%;  
-  min-width: 2.5rem;
-  min-height: 2.5rem;
-  margin: 0.2rem;
-  text-align: center;
+  width: 2rem;  
+  height: 3.4rem;
+  margin: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
   ${fSize.large};
   border-radius: 8px;
   border: none;
@@ -108,5 +160,11 @@ const Parameters = styled.button`
   }
   &:active {
     box-shadow: inset 3px 3px 3px black;
+  }
+  ${screenSize.tablet} {
+    width: 2.8rem;  
+  }
+  ${screenSize.laptop} {
+    width: 3.2rem;  
   }
 `;
