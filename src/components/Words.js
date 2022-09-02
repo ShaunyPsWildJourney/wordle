@@ -2,10 +2,7 @@ import styled from 'styled-components';
 import { fSize } from '../hooks/fonts&screen';
 
 export default function Keypad(props) {
-  const { letterArray , arrayTally, answer, wordle } = props;
-  
-  //GET WORDLE CLONE AND .replace(/,/g, '') THEN ADD tHAT TO LINE 16
-
+  const { letterArray , arrayTally, answer, wordle, gameNumber } = props;
 
   return (
     <Wrapper>
@@ -15,8 +12,8 @@ export default function Keypad(props) {
 
               {answer &&  [...wordle[index]].map((item, index) => { // ADD SUBMITTED WORD PERMANENTLY
                 return <Turns key={index} 
-                              style={{backgroundColor : answer[0].includes(item) ? 
-                                                        answer[0][index] === item ? 'lightgreen' : 'orange'
+                              style={{backgroundColor : answer[gameNumber].includes(item) ? 
+                                                        answer[gameNumber][index] === item ? 'lightgreen' : 'orange'
                                                         : 'lightgrey'}}>
                               {item}
                       </Turns>}
@@ -44,7 +41,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 50%;
+  height: 44%;
   &:first-child {
     padding-top: 2rem;
   }
@@ -57,7 +54,7 @@ const Row = styled.div`
 `;
 const Turns = styled.div`
   height: 15%;
-  width: 10%;  
+  width: 15%;  
   min-width: 2.5rem;
   min-height: 2.5rem;
   margin: 0.2rem;
@@ -67,4 +64,5 @@ const Turns = styled.div`
   ${fSize.large};
   border-radius: 4px;
   border: 1px solid lightgrey;
+  font-size: 1.5rem;
 `;

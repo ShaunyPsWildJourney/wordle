@@ -1,5 +1,4 @@
-
-const data = {
+const datas = {
   letters: [
     {key: "a"},
     {key: "b"},
@@ -28,9 +27,9 @@ const data = {
     {key: "y"},
     {key: "z"}
   ],
-  solutions: [ "pools", "pools", "pools", "pools", "pools"
+  solutions: [ "pussy", "skank", "idiot", "whore", "penis", "prick", "loser", "freak", "moron" 
   ]
 }
 
 
-export default data;
+export default datas;

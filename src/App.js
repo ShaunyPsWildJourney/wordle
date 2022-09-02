@@ -6,10 +6,11 @@ import  solution  from './data/db';
 import Winner from './components/Winner';
 import Loser from './components/Loser';
 import { screenSize } from './hooks/fonts&screen';
+import {useWindowHeight} from '@react-hook/window-size'
 
 function App() {
   const [arrayTally, setArrayTally ] = useState(0);
-  const [letterArray, setLetterArray ] = useState([]); 
+  const [letterArray, setLetterArray ] = useState(['']); 
   const [arrayCounter , setArrayCounter ] = useState(0);
   const [ wordle , setWordle ] = useState([]);
   const [ lettersPicked, setLettersPicked ] = useState('');
@@ -17,15 +18,24 @@ function App() {
   const [ charPress, setCharPress ] = useState('');
   const [answer, setAnswer] = useState(null);
   const [winner , setWinner ] = useState(false);
+  const [ gameNumber, setGameNumber ] = useState(0);
+
+  const onlyHeight = useWindowHeight()
+
 
   useEffect(() => {
     setAnswer(solution.solutions)
   }, [])
+  
+
 
   //RETRIEVE LETTERS TYPED 
   function getLetter(digit) {
     if (arrayCounter < 5) {
-      setLetterArray(prevState => prevState + digit)
+      let preventArray = (letterArray + digit)
+                        .toString()
+                        .replaceAll(/,/g, '');
+      setLetterArray(preventArray)
       setArrayCounter(arr => arr + 1)
     } else {
   // REPLACE FINAL LETTER
@@ -36,12 +46,19 @@ function App() {
     }
   }
 
+  //DELETE LETTER AND RETURN STRING 
   function handleDelete() {
-    let helper = [...letterArray]
-    helper.pop();
-    setLetterArray(helper)
+    let preventArray = ([...letterArray]
+                          .slice(0,-1))
+                          .toString()
+                          .replaceAll(/,/g, '');
+    setLetterArray([...preventArray]);
     setArrayCounter(arr => arr - 1)
   }
+
+
+
+
 
   function handleSubmit() {
     if (arrayCounter === 5) {
@@ -56,10 +73,10 @@ function App() {
 
   useEffect(() => {
     if (latestWordle) {
-      if (latestWordle.join().replaceAll(',','') === [solution.solutions[0]].join()) {
+      if (latestWordle.join().replaceAll(',','') === [solution.solutions[gameNumber]].join()) {
         setWinner(true)}
     }
-  }, [latestWordle])
+  }, [latestWordle, gameNumber])
 
   function handleReset() {
     setLettersPicked('');
@@ -67,6 +84,7 @@ function App() {
     setArrayTally(0);
     setWordle('');
     setWinner(false);
+    setGameNumber(prev => prev + 1);
   }
 
   useEffect(() => {
@@ -78,10 +96,13 @@ function App() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
- 
 
   return (
-    <Wrapper>
+    <Wrapper style={{height: `${onlyHeight}`}}>
+
+    <Container>
+
+    <Title>'Swear'dle</Title>
       {winner && <Winner handleReset={handleReset} arrayTally={arrayTally}/>}
       {arrayTally === 6 && !winner && 
       <Loser 
@@ -89,12 +110,11 @@ function App() {
             handleReset={handleReset}
             />}
 
-    <Title>Wordle</Title>
-    <Container>
       <Words letterArray={letterArray}
               arrayTally={arrayTally}
               answer={answer}
               wordle={wordle}
+              gameNumber={gameNumber}
       />
       <Keypad getLetter={getLetter}
               handleDelete={handleDelete}
@@ -104,6 +124,7 @@ function App() {
               answer={answer}
               solution={solution}
               latestWordle={latestWordle}
+              gameNumber={gameNumber}
       />
     </Container>
   </Wrapper>  
@@ -120,11 +141,12 @@ const Wrapper = styled.main`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   background-color: #f9de56;
 `;
 const Container = styled.div`
-  height: 85%;
+  height:98%;
   width: 50%;
   min-width: 300px;
   min-height: 600px;
@@ -142,13 +164,14 @@ const Container = styled.div`
   }
 `;
 const Title = styled.h1`
-  width: 100%;
   height: 10%;
-  padding: 0;
-  margin: 0;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3rem;
-  color: purple;
+  color: black;
+  border-radius: 20px;
+
 `;
+

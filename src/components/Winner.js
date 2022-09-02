@@ -1,6 +1,7 @@
 import React from 'react'
-import styled
- from 'styled-components';
+import styled from 'styled-components';
+ import { screenSize } from '../hooks/fonts&screen';
+
 
 export default function Winner(props) {
   const {handleReset , arrayTally} = props;
@@ -8,7 +9,7 @@ export default function Winner(props) {
   return (
     <Wrapper>
       <Container>
-        <Header>Won in {arrayTally} {arrayTally === 1 ? 'move' : 'moves'}</Header>
+        <Header>Won in {arrayTally} {arrayTally === 1 ? 'move' : 'moves'}!</Header>
         <TryAgain onClick={handleReset} >Go again!</TryAgain>
       </Container>
     </Wrapper>
@@ -23,8 +24,21 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 2;
-
-
+  height: 85%;
+  width: 50%;
+  min-width: 300px;
+  min-height: 600px;
+  border-radius: 30px;
+  background-color: white;
+  ${screenSize.mobile}{
+    width: 95%;
+  }
+  ${screenSize.tablet}{
+    width: 80%;
+  }
+  ${screenSize.laptop}{
+    width: 50%;
+  }
 `;
 const Container = styled.div`
   position: relative;
@@ -35,7 +49,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: white;
-  border: 1px solid black;
   border-radius: 30px;
   padding: 3rem 0;
 `;
@@ -43,7 +56,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem;
+  font-size: 3rem;
   width: 100%;
   height: 50%;
   text-align: center;
@@ -55,7 +68,7 @@ const TryAgain = styled.button`
   justify-content: center;
   align-items: center;
   background-color: pink;
-  border: 1px solid black;
+  border: none;
   border-radius: 30px;
   font-size: 3rem;
 `;
