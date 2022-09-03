@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { screenSize } from '../hooks/fonts&screen';
+import { screenSize, colors } from '../hooks/fonts&screen';
 
 export default function Loser(props ) {
   const { solution, handleReset, arrayTally } = props; 
@@ -76,7 +76,7 @@ const TryAgain = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: pink;
+  background-color: ${colors.green2};
   border: none;
   border-radius: 30px;
   font-size: 3rem;

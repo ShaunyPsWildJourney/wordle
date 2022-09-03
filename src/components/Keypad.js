@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import {useState, useEffect } from 'react';
+import {useState, useEffect  } from 'react';
 import  alphabet  from '../data/db';
-import { fSize, screenSize } from '../hooks/fonts&screen';
+import { fSize, screenSize, colors } from '../hooks/fonts&screen';
 
 
 export default function Keypad(props) {
@@ -10,7 +10,8 @@ export default function Keypad(props) {
   const [letter3, setLetter3] = useState(null);
   const [ green, setGreen ] = useState('');
   const [ orange, setOrange ] = useState('');
-  const { getLetter, handleDelete, handleSubmit , lettersPicked , solution, latestWordle, gameNumber} = props;
+  const { getLetter, handleDelete, handleSubmit , lettersPicked , 
+          solution, latestWordle, gameNumber, letterArray  } = props;
 
   useEffect(() => {
     setLetter(alphabet.letters)
@@ -40,11 +41,9 @@ export default function Keypad(props) {
     setGreen('');
   }
 
-
   return (
       <Wrapper>
-        <Keys >
-        {/* onKeyPress={charPress === item.key ? console.log(`success ${item.key}`) : null} */}
+        <Keys>
           <KeyContainer>
           {letter && letter.map((item, index) => {
             return <KeyLetter onClick={() => getLetter(item.key)} 
@@ -52,7 +51,7 @@ export default function Keypad(props) {
                               style={{backgroundColor: //COLOR MATCHING
                                         lettersPicked.includes(item.key) 
                                         ? orange.includes(item.key)
-                                        ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
+                                        ? green.includes(item.key) ? `${colors.green2}` : `${colors.orange2}` : `${colors.grey5}` : `${colors.grey2}`
                                       }}>
                                 {item.key}
                    </KeyLetter>
@@ -65,14 +64,14 @@ export default function Keypad(props) {
                               style={{backgroundColor: //COLOR MATCHING
                                         lettersPicked.includes(item.key) 
                                         ? orange.includes(item.key)
-                                        ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
+                                        ? green.includes(item.key) ? `${colors.green2}` : `${colors.orange2}` : `${colors.grey5}` : `${colors.grey2}`
                                       }}>
                                 {item.key}
                    </KeyLetter>
           })}
           </KeyContainer>
           <KeyContainer>
-            <Parameters onClick={handleDelete}>del</Parameters>
+            <Parameters onClick={handleDelete} disabled={letterArray.length === 0}>del</Parameters>
 
             {letter3 && letter3.map((item, index) => {
               return <KeyLetter onClick={() => getLetter(item.key)} 
@@ -80,13 +79,14 @@ export default function Keypad(props) {
                                 style={{backgroundColor: //COLOR MATCHING
                                           lettersPicked.includes(item.key) 
                                           ? orange.includes(item.key)
-                                          ? green.includes(item.key) ? 'lightgreen' : 'orange' : '#595959' : 'lightgrey'
+                                          ? green.includes(item.key) ? `${colors.green2}` : `${colors.orange2}` : `${colors.grey5}` : `${colors.grey2}`
                                         }}>
                                   {item.key}
                     </KeyLetter>
             })}
             <Parameters onClick={() => {handleSubmit(); handleReset()}}
-                      style={{minWidth: '4rem',}}>Enter</Parameters>
+                      style={{minWidth: '4rem',}}
+                      disabled={letterArray.length !== 5}>Enter</Parameters>
           </KeyContainer>
 
 
@@ -131,7 +131,6 @@ const KeyLetter = styled.div`
   align-items: center;  
   flex-direction: row;
   border-radius: 8px;
-  background-color: lightgrey;
   cursor: pointer;
   &:active {
     box-shadow: inset 3px 3px 3px black;
@@ -155,9 +154,6 @@ const Parameters = styled.button`
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  &:hover {
-    background-color: lightgreen;
-  }
   &:active {
     box-shadow: inset 3px 3px 3px black;
   }

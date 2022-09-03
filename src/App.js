@@ -15,24 +15,49 @@ function App() {
   const [ wordle , setWordle ] = useState([]);
   const [ lettersPicked, setLettersPicked ] = useState('');
   const [ latestWordle, setLatestWordle ] = useState('');
-  const [ charPress, setCharPress ] = useState('');
   const [answer, setAnswer] = useState(null);
   const [winner , setWinner ] = useState(false);
   const [ gameNumber, setGameNumber ] = useState(0);
-
+  const [char, setChar ] = useState('')
   const onlyHeight = useWindowHeight()
 
 
   useEffect(() => {
     setAnswer(solution.solutions)
   }, [])
+
+  // KEYBOARD KEYS AND BACKSPACE ENTER
+  useEffect(() => {
+    function handleKeyDown(e) {
+      let helper = String.fromCharCode(e.keyCode + 32);
+      setChar(helper);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+
+  }, [letterArray ]);
+
+  useEffect(() => {
+    if (char.match(/[a-z]/)){
+      getLetter(char);
+    }
+  }, [char])
   
+  
+  // if (char -32 === 'Enter') {
+  //   handleSubmit()
+  // }
+  // if (char === 'Backspace') {
+  //   handleDelete()
+  // }
+
+
 
 
   //RETRIEVE LETTERS TYPED 
   function getLetter(digit) {
     if (arrayCounter < 5) {
-      let preventArray = (letterArray + digit)
+      let preventArray = (letterArray + digit ) 
                         .toString()
                         .replaceAll(/,/g, '');
       setLetterArray(preventArray)
@@ -55,10 +80,6 @@ function App() {
     setLetterArray([...preventArray]);
     setArrayCounter(arr => arr - 1)
   }
-
-
-
-
 
   function handleSubmit() {
     if (arrayCounter === 5) {
@@ -87,19 +108,10 @@ function App() {
     setGameNumber(prev => prev + 1);
   }
 
-  useEffect(() => {
-    function handleKeyDown(e) {
-      let helper = String.fromCharCode(e.keyCode + 32);
-      setCharPress(helper)
-    }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
 
   return (
-    <Wrapper style={{height: `${onlyHeight}px`}}>
-
+  <Wrapper style={{height: `${onlyHeight}px`}}
+            >
     <Container>
 
     <Title>'Swear'dle</Title>
@@ -120,11 +132,11 @@ function App() {
               handleDelete={handleDelete}
               handleSubmit={handleSubmit}
               lettersPicked={lettersPicked}
-              charPress={charPress}
               answer={answer}
               solution={solution}
               latestWordle={latestWordle}
               gameNumber={gameNumber}
+              letterArray={letterArray}
       />
     </Container>
   </Wrapper>  
@@ -143,18 +155,19 @@ const Wrapper = styled.main`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #f9de56;
+  /* background-color: #f9de56; */
 `;
 const Container = styled.div`
-  height:98%;
+  height:100%;
   width: 50%;
   min-width: 300px;
   min-height: 600px;
-  border: 1px solid black;
-  border-radius: 30px;
+  /* border: 1px solid black; */
+  /* border-radius: 30px; */
   background-color: white;
   ${screenSize.mobile}{
-    width: 95%;
+    width: 100%;
+    border-radius: 0px;
   }
   ${screenSize.tablet}{
     width: 80%;

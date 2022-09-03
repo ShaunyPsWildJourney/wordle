@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fSize } from '../hooks/fonts&screen';
+import { fSize, colors } from '../hooks/fonts&screen';
 
 export default function Keypad(props) {
   const { letterArray , arrayTally, answer, wordle, gameNumber } = props;
@@ -13,15 +13,15 @@ export default function Keypad(props) {
               {answer &&  [...wordle[index]].map((item, index) => { // ADD SUBMITTED WORD PERMANENTLY
                 return <Turns key={index} 
                               style={{backgroundColor : answer[gameNumber].includes(item) ? 
-                                                        answer[gameNumber][index] === item ? 'lightgreen' : 'orange'
-                                                        : 'lightgrey'}}>
+                                                        answer[gameNumber][index] === item ? `${colors.green2}` : `${colors.orange2}`
+                                                        : `${colors.grey2}`}}>
                               {item}
                       </Turns>}
             )} 
             </Row>
           )
         } 
-
+       
         {arrayTally < 6 && <Row>
           <Turns>{letterArray[0]}</Turns>
           <Turns>{letterArray[1]}</Turns>

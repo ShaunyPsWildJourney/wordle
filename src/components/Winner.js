@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
- import { screenSize } from '../hooks/fonts&screen';
+import { screenSize, colors } from '../hooks/fonts&screen';
 
 
 export default function Winner(props) {
@@ -23,11 +23,12 @@ const Wrapper = styled.div`
   align-items: center;
   z-index: 2;
   height: 75%;
-  border-radius: 30px;
+  ;
   ${screenSize.mobile}{
-    width: 95%;
+    width: 100%;
   }
   ${screenSize.tablet}{
+    border-radius: 30px;
     width: 80%;
   }
   ${screenSize.laptop}{
@@ -36,8 +37,8 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   position: relative;
-  width: 99%;
-  height: 99%;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +46,6 @@ const Container = styled.div`
   background-color: white;
   border-radius: 30px;
   padding: 3rem 0;
-
 `;
 const Header = styled.div`
   display: flex;
@@ -62,7 +62,7 @@ const TryAgain = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: pink;
+  background-color: ${colors.green2};
   border: none;
   border-radius: 30px;
   font-size: 3rem;
