@@ -19,6 +19,7 @@ function App() {
   const [winner , setWinner ] = useState(false);
   const [ gameNumber, setGameNumber ] = useState(0);
   const [char, setChar ] = useState('')
+  const [kikiCode, setKeyCode ] = useState('')
   const onlyHeight = useWindowHeight()
 
 
@@ -29,30 +30,33 @@ function App() {
   // KEYBOARD KEYS AND BACKSPACE ENTER
   useEffect(() => {
     function handleKeyDown(e) {
-      let helper = String.fromCharCode(e.keyCode + 32);
+      let helper = e.key;
       setChar(helper);
+      let helper2 = e.key;
+      setKeyCode(helper2);
     }
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
 
-  }, [letterArray ]);
+  }, [letterArray]);
 
+  // HACK THE LETTERS INTO THE ARRAY AND ADD ENTER AND BACKSPACE
   useEffect(() => {
     if (char.match(/[a-z]/)){
       getLetter(char);
     }
   // eslint-disable-next-line 
   }, [char])
+  useEffect(() => {
+    if (kikiCode === 'Enter') {
+      handleSubmit()
+    }
+    if (kikiCode === 'Backspace') {
+      handleDelete()
+    }
+  // eslint-disable-next-line 
+  }, [kikiCode ])
   
-  
-  // if (char -32 === 'Enter') {
-  //   handleSubmit()
-  // }
-  // if (char === 'Backspace') {
-  //   handleDelete()
-  // }
-
-
 
 
   //RETRIEVE LETTERS TYPED 
