@@ -41,6 +41,7 @@ function App() {
     if (char.match(/[a-z]/)){
       getLetter(char);
     }
+  // eslint-disable-next-line 
   }, [char])
   
   
