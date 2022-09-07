@@ -54,7 +54,8 @@ const Let = styled.div`
   align-items: center;
   ${fSize.large};
   border-radius: 4px;
-  border: 2px solid lightgrey;
+  border: 1px solid lightgrey;
+  background-color: white;
   font-size: 1.5rem;
   font-weight: 500;
 `;

@@ -3,7 +3,6 @@ import Keyboard from "./components/Keyboard";
 import { useState , createContext, useEffect} from 'react';
 import { boardDefault } from "./Words";
 import { generateWordSet } from "./Words";
-import {  colors } from './fonts&screen';
 import styled from "styled-components";
 import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
 import Gameover from "./components/Gameover";
@@ -131,6 +130,7 @@ const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 const Header = styled.div`
@@ -141,7 +141,4 @@ const Header = styled.div`
   font-size: 3rem;
   font-weight: 600;
   text-decoration: underline;
-  /* border-bottom: 6px ridge ${colors.green2} ; */
-  /* box-shadow: 2px 2px 2px green; */
-  
 `;
