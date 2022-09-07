@@ -78,7 +78,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 96%;
+  width: 100%;
   height: auto;
   padding-bottom: 2rem;
   ${fSize.laptop}{
@@ -90,7 +90,7 @@ const Keys = styled.div`
   flex-direction: column;
   justify-content: center;
   ${fSize.large};
-  width: 98%;
+  width: 92%;
 `;
 const Keyrow = styled.div`
   display: flex;

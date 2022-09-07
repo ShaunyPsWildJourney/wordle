@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { AppContext } from '../App';
 import styled from 'styled-components';
-import {  colors } from '../fonts&screen';
+import {  colors, fSize } from '../fonts&screen';
 
 export default function Gameover() {
 
@@ -35,6 +35,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${fSize.laptop}{
+    max-width: 600px;
+  }
 `;
 const Container = styled.div`
   width: 80%;
