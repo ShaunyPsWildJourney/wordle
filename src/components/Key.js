@@ -44,7 +44,8 @@ const KeySolo = styled.div`
   flex-direction: row;
   border-radius: 5px;
   cursor: pointer;
-  border: 2px solid ${colors.grey3};
+  border: 1px solid ${colors.grey3};
+  background-color: white;
   font-weight: 500;
   &:active {
     box-shadow: inset 3px 3px 3px black;
