@@ -5,13 +5,14 @@ import { boardDefault } from "./Words";
 import { generateWordSet } from "./Words";
 import {  colors } from './fonts&screen';
 import styled from "styled-components";
-import { useWindowHeight} from '@react-hook/window-size'
+import { useWindowHeight, useWindowWidth } from '@react-hook/window-size'
 import Gameover from "./components/Gameover";
 
 export const AppContext = createContext();
 
 function App() {
   const onlyHeight = useWindowHeight()
+  const onlyWidth = useWindowWidth()
   const [ board, setBoard ] = useState(boardDefault)
   const [ currAttempt, setCurrAttempt ] = useState({attempt: 0, letterPos: 0});
   const [ correctWord, setCorrectWord ] = useState('');
@@ -88,7 +89,7 @@ function App() {
   }
 
   return (
-    <Wrapper style={{height: `${onlyHeight}px`}}>
+    <Wrapper style={{height: `${onlyHeight}px`, width: `${onlyWidth}px`}}>
 
         <Header>'Swear'dle</Header>
 
@@ -133,6 +134,7 @@ const Header = styled.div`
   width: 100%;
   text-align: center;
   height: 8%;
+  min-height: 4.2rem;
   font-size: 3rem;
   font-weight: 600;
   text-decoration: underline;

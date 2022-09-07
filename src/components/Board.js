@@ -77,7 +77,7 @@ const Wrapper = styled.div`
 const Row = styled.div`
   display: flex;
   justify-content: center;
-  width: 96%;
+  width: 92%;
   height: auto;
   flex: 1;
 `;
