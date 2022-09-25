@@ -89,7 +89,7 @@ function App() {
   return (
     <Wrapper style={{height: `${onlyHeight}px`}}>
 
-        <Header>'Swear'dle</Header>
+        <Header>Sweardle</Header>
 
 
       <AppContext.Provider value={{
